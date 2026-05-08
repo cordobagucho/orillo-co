@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orillo Co. — Denim Bogotá</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700;800&family=Barlow+Condensed:ital,wght@0,300;0,500;0,700;1,300;1,700&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --indigo:    #1a1f3c;
+      --deep:      #0d0f1e;
+      --raw:       #c8b99a;
+      --fade:      #6b7fa3;
+      --cream:     #f0ebe0;
+      --accent:    #e8472a;
+      --white:     #f7f4ef;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, opacity 0.15s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(232,71,42,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.4s ease, width 0.3s, height 0.3s;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: normal;
+    }
+    nav::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(13,15,30,0.9) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .nav-logo {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      position: relative;
+    }
+    .nav-logo span {
+      color: var(--accent);
+    }
+    .nav-links {
+      display: flex; gap: 40px;
+      list-style: none;
+      position: relative;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fade);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26,31,60,0.8) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 80% at 20% 80%, rgba(107,127,163,0.15) 0%, transparent 60%),
+        linear-gradient(160deg, #0d0f1e 0%, #1a1f3c 40%, #0b0e1a 100%);
+    }
+
+    /* Denim texture grain */
+    .hero-grain {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    /* Diagonal lines (denim weave) */
+    .hero-weave {
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 3px,
+        rgba(107,127,163,0.04) 3px,
+        rgba(107,127,163,0.04) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Big kanji watermark */
+    .hero-kanji {
+      position: absolute;
+      right: -2vw;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(180px, 30vw, 420px);
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(107,127,163,0.12);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      animation: kanjiFade 3s ease forwards;
+    }
+    @keyframes kanjiFade {
+      from { opacity: 0; transform: translateY(-50%) translateX(40px); }
+      to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+    }
+
+    .hero-content {
+      position: relative;
+      padding: 0 48px 80px;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      opacity: 0;
+      animation: slideUp 0.8s 0.3s ease forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px; height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(56px, 10vw, 130px);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: slideUp 0.9s 0.5s ease forwards;
+    }
+    .hero-title .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1px var(--raw);
+      display: block;
+    }
+    .hero-title .line3 {
+      font-style: italic;
+      color: var(--fade);
+      font-size: 0.6em;
+      font-weight: 400;
+      display: block;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(14px, 1.8vw, 18px);
+      font-weight: 300;
+      color: var(--raw);
+      letter-spacing: 0.08em;
+      line-height: 1.6;
+      max-width: 480px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: slideUp 0.9s 0.7s ease forwards;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--deep);
+      background: var(--white);
+      padding: 18px 40px;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+      opacity: 0;
+      animation: slideUp 0.9s 0.9s ease forwards;
+    }
+    .hero-cta:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .hero-cta svg { width: 16px; }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      right: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--fade);
+      writing-mode: vertical-rl;
+      opacity: 0;
+      animation: slideUp 1s 1.2s ease forwards;
+    }
+    .scroll-line {
+      width: 1px; height: 60px;
+      background: var(--fade);
+      animation: scrollPulse 2s infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 0.5; }
+      50%       { transform: scaleY(0.5); opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MANIFESTO */
+    .manifesto {
+      padding: 160px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .manifesto::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(107,127,163,0.3), transparent);
+    }
+
+    .manifesto-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .manifesto-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-top: 8px;
+    }
+
+    .manifesto-text {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(22px, 3.5vw, 42px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--white);
+    }
+    .manifesto-text em {
+      color: var(--raw);
+      font-style: normal;
+    }
+
+    /* PILLARS */
+    .pillars {
+      padding: 0 48px 160px;
+    }
+    .pillars-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .pillar {
+      background: rgba(26,31,60,0.4);
+      border: 1px solid rgba(107,127,163,0.1);
+      padding: 56px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+    }
+    .pillar:hover {
+      background: rgba(26,31,60,0.8);
+    }
+    .pillar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+      transform-origin: left;
+    }
+    .pillar:hover::after { transform: scaleX(1); }
+
+    .pillar-num {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(107,127,163,0.3);
+      line-height: 1;
+      margin-bottom: 32px;
+    }
+    .pillar-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .pillar-body {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--fade);
+    }
+
+    /* ORIGIN */
+    .origin {
+      padding: 120px 48px;
+      background: rgba(26,31,60,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .origin::before {
+      content: 'BOGOTÁ';
+      position: absolute;
+      left: -0.05em;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(80px, 18vw, 240px);
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(107,127,163,0.06);
+      pointer-events: none;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .origin-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+      position: relative;
+    }
+
+    .origin-visual {
+      aspect-ratio: 3/4;
+      background:
+        linear-gradient(160deg, rgba(26,31,60,0.9) 0%, rgba(13,15,30,0.6) 100%),
+        repeating-linear-gradient(
+          -45deg,
+          rgba(107,127,163,0.08) 0px, rgba(107,127,163,0.08) 1px,
+          transparent 1px, transparent 8px
+        );
+      border: 1px solid rgba(107,127,163,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .origin-visual-inner {
+      text-align: center;
+    }
+    .origin-visual-kanji {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 120px;
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(200,185,154,0.4);
+      line-height: 1;
+      display: block;
+    }
+    .origin-visual-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--fade);
+      margin-top: 16px;
+    }
+    .origin-visual::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--accent), var(--fade));
+    }
+
+    .origin-content {}
+    .origin-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .origin-eyebrow::before {
+      content: '';
+      display: block; width: 30px; height: 1px;
+      background: var(--accent);
+    }
+    .origin-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 32px;
+    }
+    .origin-body {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: rgba(240,235,224,0.7);
+      margin-bottom: 24px;
+    }
+    .origin-body + .origin-body { color: rgba(240,235,224,0.5); }
+
+    .origin-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--raw);
+      border: 1px solid rgba(200,185,154,0.3);
+      padding: 8px 20px;
+      margin-top: 8px;
+      margin-right: 8px;
+    }
+
+    /* DETAILS strip */
+    .details-strip {
+      border-top: 1px solid rgba(107,127,163,0.15);
+      border-bottom: 1px solid rgba(107,127,163,0.15);
+      padding: 40px 48px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      overflow: hidden;
+    }
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .detail-num {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .detail-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--fade);
+    }
+
+    /* PRODUCT TEASER */
+    .products {
+      padding: 160px 48px;
+    }
+    .products-header {
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .products-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .products-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .products-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .product-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img {
+      aspect-ratio: 3/4;
+      background: rgba(26,31,60,0.5);
+      border: 1px solid rgba(107,127,163,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s;
+    }
+    .product-card:hover .product-img {
+      border-color: rgba(107,127,163,0.4);
+    }
+    .product-img-bg {
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          transparent, transparent 4px,
+          rgba(107,127,163,0.05) 4px, rgba(107,127,163,0.05) 5px
+        );
+      transition: opacity 0.4s;
+    }
+    .product-card:hover .product-img-bg { opacity: 0.5; }
+
+    .product-name-big {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 5rem;
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(200,185,154,0.2);
+      position: relative;
+      transition: -webkit-text-stroke-color 0.3s;
+    }
+    .product-card:hover .product-name-big {
+      -webkit-text-stroke-color: rgba(200,185,154,0.5);
+    }
+
+    .product-coming {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(13,15,30,0.9);
+      padding: 6px 12px;
+      border: 1px solid rgba(232,71,42,0.3);
+    }
+
+    .product-info {
+      padding: 20px 0 0;
+    }
+    .product-info-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .product-info-detail {
+      font-size: 0.85rem;
+      color: var(--fade);
+    }
+
+    /* WAITLIST */
+    .waitlist {
+      padding: 160px 48px;
+      background: var(--indigo);
+      position: relative;
+      overflow: hidden;
+    }
+    .waitlist::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(107,127,163,0.12) 0%, transparent 70%);
+    }
+    .waitlist-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+    .waitlist-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+    .waitlist-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .waitlist-sub {
+      font-size: 0.9rem;
+      color: var(--fade);
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+    .waitlist-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .waitlist-input {
+      flex: 1;
+      background: rgba(13,15,30,0.8);
+      border: 1px solid rgba(107,127,163,0.3);
+      border-right: none;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.85rem;
+      padding: 18px 24px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .waitlist-input::placeholder { color: var(--fade); }
+    .waitlist-input:focus { border-color: rgba(107,127,163,0.7); }
+    .waitlist-btn {
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 18px 32px;
+      cursor: none;
+      transition: background 0.3s;
+    }
+    .waitlist-btn:hover { background: #d13520; }
+
+    /* FOOTER */
+    footer {
+      padding: 80px 48px 40px;
+      border-top: 1px solid rgba(107,127,163,0.1);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .footer-logo {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-origin {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--fade);
+      margin-top: 8px;
+    }
+    .footer-right {
+      text-align: right;
+    }
+    .footer-copy {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(107,127,163,0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      nav { padding: 24px; }
+      .nav-links { display: none; }
+      .hero-content { padding: 0 24px 80px; }
+      .manifesto { padding: 80px 24px; }
+      .manifesto-inner { grid-template-columns: 1fr; gap: 32px; }
+      .pillars { padding: 0 24px 80px; }
+      .pillars-inner { grid-template-columns: 1fr; }
+      .origin { padding: 80px 24px; }
+      .origin-inner { grid-template-columns: 1fr; gap: 48px; }
+      .origin-visual { display: none; }
+      .details-strip { gap: 32px; padding: 32px 24px; flex-wrap: wrap; }
+      .products { padding: 80px 24px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .products-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .waitlist { padding: 80px 24px; }
+      .waitlist-form { flex-direction: column; }
+      .waitlist-input { border-right: 1px solid rgba(107,127,163,0.3); }
+      footer { padding: 60px 24px 32px; }
+      .footer-inner { flex-direction: column; gap: 32px; align-items: flex-start; }
+      .footer-right { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Orillo<span>.</span>Co</a>
+    <ul class="nav-links">
+      <li><a href="#manifesto">Historia</a></li>
+      <li><a href="#productos">Colección</a></li>
+      <li><a href="#waitlist">Notifícame</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-weave"></div>
+    <div class="hero-kanji">織</div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Bogotá — Denim Artesanal</div>
+      <h1 class="hero-title">
+        Orillo
+        <span class="line2">Co.</span>
+        <span class="line3">El borde que define la tela</span>
+      </h1>
+      <p class="hero-sub">
+        Denim de selvedge hecho con obsesión bogotana.<br>
+        Inspirado en la tradición japonesa, construido para las calles de acá.
+      </p>
+      <a href="#waitlist" class="hero-cta">
+        Únete a la lista
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto" id="manifesto">
+    <div class="manifesto-inner">
+      <div class="manifesto-label">Manifiesto</div>
+      <p class="manifesto-text">
+        El denim que <em>dura</em> no se fabrica en serie.<br>
+        Se teje lento, se corta con criterio,<br>
+        se lleva con <em>historia</em>.<br><br>
+        Bogotá tiene ese carácter.<br>
+        Japón tiene esa <em>obsesión</em>.<br>
+        Orillo Co. tiene las dos.
+      </p>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="pillars">
+    <div class="pillars-inner">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">Selvedge Real</div>
+        <p class="pillar-body">Tejido en telar de lanzadera. El orillo cerrado que no se deshilacha, que mejora con el tiempo. Sin atajos, sin elastano, sin concesiones.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">Índigo Profundo</div>
+        <p class="pillar-body">Azul que se destiñe donde debes: las caderas, las rodillas, el bolsillo de las llaves. Cada jean cuenta tu historia, nadie más tiene el tuyo.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">Hecho en Bogotá</div>
+        <p class="pillar-body">Cortado y cosido en talleres de la ciudad. Manos que conocen la tela. Procesos que podemos rastrear desde el hilo hasta tu hands.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAILS STRIP -->
+  <div class="details-strip">
+    <div class="detail-item">
+      <span class="detail-num">100%</span>
+      <span class="detail-label">Algodón puro</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-num">14oz</span>
+      <span class="detail-label">Peso del denim</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-num">BOG</span>
+      <span class="detail-label">Origen</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-num">∞</span>
+      <span class="detail-label">Vida útil</span>
+    </div>
+  </div>
+
+  <!-- ORIGIN -->
+  <section class="origin">
+    <div class="origin-inner">
+      <div class="origin-visual">
+        <div class="origin-visual-inner">
+          <span class="origin-visual-kanji">織</span>
+          <p class="origin-visual-sub">Ori — Tejido / Weave</p>
+        </div>
+      </div>
+      <div class="origin-content">
+        <div class="origin-eyebrow">El origen</div>
+        <h2 class="origin-title">Bogotá teje diferente</h2>
+        <p class="origin-body">
+          El nombre viene de aquí: <em>orillo</em> es como se llama en español al selvedge, ese borde limpio que los maestros japoneses perfeccionaron en sus telares de lanzadera. No lo importamos. Lo adoptamos, lo entendemos, lo hacemos nuestro.
+        </p>
+        <p class="origin-body">
+          Nos obsesionamos con el proceso porque creemos que la ropa que vale es la que te acompaña años, no temporadas. El denim no es moda. El denim es carácter.
+        </p>
+        <span class="origin-tag">Bogotá, Colombia</span>
+        <span class="origin-tag">Est. 2025</span>
+        <span class="origin-tag">Selvedge Denim</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="productos">
+    <div class="products-header">
+      <h2 class="products-title">Primera<br>Colección</h2>
+      <a href="#waitlist" class="products-link">Ver todo →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-bg"></div>
+          <span class="product-name-big">001</span>
+          <div class="product-coming">Próximamente</div>
+        </div>
+        <div class="product-info">
+          <div class="product-info-name">Orillo 001 — Straight</div>
+          <div class="product-info-detail">14oz · Índigo oscuro · Selvedge</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-bg"></div>
+          <span class="product-name-big">002</span>
+          <div class="product-coming">Próximamente</div>
+        </div>
+        <div class="product-info">
+          <div class="product-info-name">Orillo 002 — Slim Taper</div>
+          <div class="product-info-detail">12oz · One-wash · Selvedge</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-bg"></div>
+          <span class="product-name-big">003</span>
+          <div class="product-coming">Próximamente</div>
+        </div>
+        <div class="product-info">
+          <div class="product-info-name">Orillo 003 — Wide Leg</div>
+          <div class="product-info-detail">16oz · Raw · Edición limitada</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST -->
+  <section class="waitlist" id="waitlist">
+    <div class="waitlist-inner">
+      <div class="waitlist-eyebrow">Lanzamiento 2025</div>
+      <h2 class="waitlist-title">Sé el primero<br>en saberlo</h2>
+      <p class="waitlist-sub">
+        La primera producción es limitada. Deja tu correo y te avisamos antes que a nadie. Sin spam. Solo denim.
+      </p>
+      <div class="waitlist-form">
+        <input type="email" class="waitlist-input" placeholder="tu@correo.com" />
+        <button class="waitlist-btn">Apuntarme</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">Orillo<span>.</span>Co</div>
+        <div class="footer-origin">Bogotá, Colombia — Denim Selvedge</div>
+      </div>
+      <div class="footer-right">
+        <div class="footer-copy">© 2025 Orillo Co. Todos los derechos reservados.</div>
+        <div class="footer-copy" style="margin-top:6px">Hecho con obsesión en Bogotá.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+
+    document.querySelectorAll('a, button, input').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+        ring.style.width = '56px'; ring.style.height = '56px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+        ring.style.width = '36px'; ring.style.height = '36px';
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.pillar, .origin-content, .product-card, .manifesto-text').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(40px)';
+      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(el);
+    });
+
+    // Waitlist button
+    document.querySelector('.waitlist-btn').addEventListener('click', function() {
+      const input = document.querySelector('.waitlist-input');
+      if (input.value && input.value.includes('@')) {
+        this.textContent = '✓ Listo';
+        this.style.background = '#2a7a3a';
+        input.value = '';
+        input.placeholder = 'Te avisamos pronto';
+      }
+    });
+  </script>
+</body>
+</html>
